@@ -1,6 +1,8 @@
 const { Client } = require("pg");
 require('dotenv').config();
 
+//Create db... Need to reconfigure .env here as this is a separate module that is run entirely separately from the app
+//and thus does not get called from the app.js entry point or anywhere else in the app
 const SQL = `
   CREATE TABLE IF NOT EXISTS users (
     id SERIAL PRIMARY KEY,

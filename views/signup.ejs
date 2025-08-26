@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Sign Up</title>
+  </head>
+  <body>
+    <h1>Sign Up!!!</h1>
+    <form method="POST" action="/signup">
+      <div>
+        <label for="username" type="text">
+          Username:
+          <input name="username" id="username" type="text" required>
+        </label>
+        <label for="password" type="text">
+          Password:
+          <input name="password" id="password" type="password" required>
+        </label>
+        <label for="confirmPassword">
+          Confirm Password:
+          <input name="confirmPassword" id="confirmPassword" type="password" required>
+        </label>
+      </div>
+      <div>
+        <% if (unameCheck) { %><div>Username already exists.</div><%}%>
+      </div>
+      <div>
+        <button type="submit" id="submitBtn">Submit</button>
+      </div>
+    </form>
+    <script>
+      //Add event listeners to check if the passwords match
+      //Prevent form submission and raise error if they dont match
+      const password = document.querySelector("#password");
+      const confirmPassword = document.querySelector("#confirmPassword");
+      const submitBtn = document.querySelector("#submitBtn");
+
+      submitBtn.addEventListener("click", (e) => {
+        if (password.value !== confirmPassword.value) {
+          e.preventDefault();
+        }
+      });
+
+      confirmPassword.addEventListener("input", (e) => {
+        if (password.value !== confirmPassword.value) {
+          confirmPassword.setCustomValidity('Passwords do not match');
+          confirmPassword.reportValidity();
+        } else {
+          confirmPassword.setCustomValidity('');
+        }
+      })
+    </script>
+  </body>
+</html>
