@@ -15,7 +15,20 @@ async function checkUsernameExists(uname) {
   return unameCheck.rows.length > 0;
 }
 
+//Find the user to authenticate
+async function findUser(uname) {
+  const find = await pool.query("SELECT * FROM users WHERE username = $1", [uname]);
+  return find.rows[0];
+} 
+
+async function findUserById(id) {
+  const user = await pool.query("SELECT * FROM users WHERE id = $1", [id]);
+  return user.rows[0];
+}
+
 module.exports = {
   insertUser,
-  checkUsernameExists
+  checkUsernameExists,
+  findUser,
+  findUserById
 }

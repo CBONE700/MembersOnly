@@ -1,31 +1,56 @@
+require("dotenv").config();
 const express = require('express');
 const path = require("node:path");
 const session = require('express-session');
-const LocalStrategy = require('passport-local').Strategy;
+const passport = require('passport');
+const crypto = require('crypto');
+const pool = require('./db/pool');
 
-const PGStore = require('connect-pg-simple')(session);
+const pgSession = require('connect-pg-simple')(session);
 
 //Require in dotenv at the beginning of app so that it is passed through to the db sections
-require("dotenv").config();
 
 //Create overarching express app
 const app = express();
 
-//Require in the signup route for the app to use
+//Require in the routes for the app to use
 const signupRoute = require("./routes/signupRoute");
+const loginRoute = require("./routes/loginRoute");
 
 //Set up views middleware
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
 app.use(express.urlencoded({extended: true}));
 
+//Session Setup
+app.use(session({
+  store: new pgSession({
+    pool: pool,
+  }),
+  secret: process.env.SECRET,
+  resave: false,
+  saveUninitialized: false,
+  cookie: { maxAge: 30 * 24 * 60 * 60 * 1000 }
+}));
+
+//Passport Auth Setup
+require('./config/passport');
+
+app.use(passport.session());
+app.use((req, res, next) => {
+    console.log(req.session);
+    console.log(req.user);
+    next();
+});
+
 //Set startup index
 app.get("/", (req, res) => {
   res.render("index")
 });
 
-//Set signup index middleware
+//Set route middleware
 app.use("/signup", signupRoute);
+app.use("/login", loginRoute);
 
 //Run the app
 const PORT = 3000;
