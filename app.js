@@ -29,6 +29,7 @@ app.use(express.urlencoded({extended: true}));
 app.use(session({
   store: new pgSession({
     pool: pool,
+    createTableIfMissing: true,
   }),
   secret: process.env.SECRET,
   resave: false,
@@ -59,7 +60,8 @@ app.use("/member", memberRoute);
 app.use("/createmessage", createmessageRoute);
 
 //Run the app
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3000
+
 app.listen(PORT, (error) => {
   if (error) {
     throw error;
