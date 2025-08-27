@@ -25,6 +25,12 @@ app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
 app.use(express.urlencoded({extended: true}));
 
+if (process.env.SECRET) {
+  console.log("✅ SECRET is defined in Railway");
+} else {
+  console.log("❌ SECRET is missing");
+}
+
 //Session Setup
 app.use(session({
   store: new pgSession({
