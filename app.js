@@ -16,6 +16,7 @@ const app = express();
 //Require in the routes for the app to use
 const signupRoute = require("./routes/signupRoute");
 const loginRoute = require("./routes/loginRoute");
+const logoutRoute = require("./routes/logoutRoute");
 
 //Set up views middleware
 app.set("views", path.join(__dirname, "views"));
@@ -45,12 +46,17 @@ app.use((req, res, next) => {
 
 //Set startup index
 app.get("/", (req, res) => {
-  res.render("index")
+  if (req.user) {
+    res.render("members_only", { user: req.user.username });
+  } else {
+    res.render("index");
+  }
 });
 
 //Set route middleware
 app.use("/signup", signupRoute);
 app.use("/login", loginRoute);
+app.use("/logout", logoutRoute);
 
 //Run the app
 const PORT = 3000;
