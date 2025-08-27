@@ -13,6 +13,11 @@ const pgSession = require('connect-pg-simple')(session);
 //Create overarching express app
 const app = express();
 
+pool.query('SELECT NOW()', (err, res) => {
+  if (err) console.error("Database connection failed:", err);
+  else console.log("Database connected ✅", res.rows[0]);
+});
+
 console.log("App starting...");
 console.log("PORT is:", process.env.PORT || "not set (using fallback 3000)");
 console.log("SECRET is:", process.env.SECRET ? "defined ✅" : "missing ❌");
