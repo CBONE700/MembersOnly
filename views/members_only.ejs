@@ -17,6 +17,19 @@
       <div>
         <a href="/logout">Logout</a>
       </div>
+    </div><br>
+    <div>
+      <% messages.map(message => { %> 
+      <div>
+        <div>From <%= message.username %></div>
+        <div><% if (member) { %> 
+          <div>Title: <%= message.title %></div> 
+          <div>Message: <%= message.text %></div> 
+          <%} else {%> 
+            <div>You need to be a member to view messages!!!</div>
+            <%}%>
+        </div><br>
+      </div><%})%>
     </div>
   </body>
 </html>

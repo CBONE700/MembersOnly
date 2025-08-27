@@ -36,11 +36,17 @@ async function insertMessage(title, message, username) {
   );
 }
 
+async function getMessages() {
+  const messages = await pool.query("SELECT * FROM messages");
+  return messages.rows
+}
+
 module.exports = {
   insertUser,
   checkUsernameExists,
   findUser,
   findUserById,
   setMember,
-  insertMessage
+  insertMessage,
+  getMessages
 }

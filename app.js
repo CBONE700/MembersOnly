@@ -3,8 +3,8 @@ const express = require('express');
 const path = require("node:path");
 const session = require('express-session');
 const passport = require('passport');
-const crypto = require('crypto');
 const pool = require('./db/pool');
+const db = require('./db/queries');
 
 const pgSession = require('connect-pg-simple')(session);
 
@@ -42,9 +42,10 @@ require('./config/passport');
 app.use(passport.session());
 
 //Set startup index
-app.get("/", (req, res) => {
+app.get("/", async (req, res) => {
   if (req.user) {
-    res.render("members_only", { user: req.user.username, member: req.user.membership_status });
+    const messages = await db.getMessages();
+    res.render("members_only", { user: req.user.username, member: req.user.membership_status, messages: messages });
   } else {
     res.render("index");
   }
