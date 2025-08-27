@@ -30,10 +30,17 @@ async function setMember(id) {
   await pool.query("UPDATE users SET membership_status = true  WHERE id = $1", [id]);
 }
 
+async function insertMessage(title, message, username) {
+  await pool.query(
+    "INSERT INTO messages (title, text, username) VALUES ($1, $2, $3)", [title, message, username]
+  );
+}
+
 module.exports = {
   insertUser,
   checkUsernameExists,
   findUser,
   findUserById,
-  setMember
+  setMember,
+  insertMessage
 }

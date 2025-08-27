@@ -18,7 +18,7 @@ const SQL = `
     title TEXT NOT NULL,
     text TEXT NOT NULL,
     timestamp TIMESTAMP DEFAULT NOW(),
-    user_id INTEGER REFERENCES users(id)
+    username TEXT REFERENCES users(username)
   );
 `;
 

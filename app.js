@@ -18,6 +18,7 @@ const signupRoute = require("./routes/signupRoute");
 const loginRoute = require("./routes/loginRoute");
 const logoutRoute = require("./routes/logoutRoute");
 const memberRoute = require("./routes/memberRoute");
+const createmessageRoute = require("./routes/createmessageRoute");
 
 //Set up views middleware
 app.set("views", path.join(__dirname, "views"));
@@ -43,7 +44,7 @@ app.use(passport.session());
 //Set startup index
 app.get("/", (req, res) => {
   if (req.user) {
-    res.render("members_only", { user: req.user.username });
+    res.render("members_only", { user: req.user.username, member: req.user.membership_status });
   } else {
     res.render("index");
   }
@@ -54,6 +55,7 @@ app.use("/signup", signupRoute);
 app.use("/login", loginRoute);
 app.use("/logout", logoutRoute);
 app.use("/member", memberRoute);
+app.use("/createmessage", createmessageRoute);
 
 //Run the app
 const PORT = 3000;

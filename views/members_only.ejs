@@ -5,7 +5,18 @@
   </head>
   <body>
     <h1>Welcome to Members Only Homepage <%= user %></h1>
-    <div> <a href="/logout">Logout</a><a href="/createmessage">Create a message</a><a href="/member">Become a Member!</a></div>
-
+    <div>
+      <div>
+        <% if (member) { %> You are a member! <% } else { %><a href="/member">Become a Member!</a><% } %>
+      </div> 
+      <% if (member) { %>
+        <div>
+          <a href="/createmessage">Create a message</a>
+        </div>
+      <%}%>
+      <div>
+        <a href="/logout">Logout</a>
+      </div>
+    </div>
   </body>
 </html>
