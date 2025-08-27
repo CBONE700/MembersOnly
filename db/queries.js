@@ -26,9 +26,14 @@ async function findUserById(id) {
   return user.rows[0];
 }
 
+async function setMember(id) {
+  await pool.query("UPDATE users SET membership_status = true  WHERE id = $1", [id]);
+}
+
 module.exports = {
   insertUser,
   checkUsernameExists,
   findUser,
-  findUserById
+  findUserById,
+  setMember
 }

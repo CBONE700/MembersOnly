@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Become a Member!</title>
+  </head>
+  <body>
+    <h1>Become a Member!</h1>
+    <form method="POST" action="/member">
+      <label for="pw">
+        Password: 
+        <input name="pw" type="password">
+      </label>
+      <div><button type="submit">Submit</button></div>
+    </form>
+    <% if (incorrect) { %><div>Incorrect Password</div> <%}%>
+    <a href="/">Go Back</a>
+  </body>
+</html>

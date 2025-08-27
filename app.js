@@ -17,6 +17,7 @@ const app = express();
 const signupRoute = require("./routes/signupRoute");
 const loginRoute = require("./routes/loginRoute");
 const logoutRoute = require("./routes/logoutRoute");
+const memberRoute = require("./routes/memberRoute");
 
 //Set up views middleware
 app.set("views", path.join(__dirname, "views"));
@@ -38,11 +39,6 @@ app.use(session({
 require('./config/passport');
 
 app.use(passport.session());
-app.use((req, res, next) => {
-    console.log(req.session);
-    console.log(req.user);
-    next();
-});
 
 //Set startup index
 app.get("/", (req, res) => {
@@ -57,6 +53,7 @@ app.get("/", (req, res) => {
 app.use("/signup", signupRoute);
 app.use("/login", loginRoute);
 app.use("/logout", logoutRoute);
+app.use("/member", memberRoute);
 
 //Run the app
 const PORT = 3000;
