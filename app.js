@@ -13,6 +13,10 @@ const pgSession = require('connect-pg-simple')(session);
 //Create overarching express app
 const app = express();
 
+console.log("App starting...");
+console.log("PORT is:", process.env.PORT || "not set (using fallback 3000)");
+console.log("SECRET is:", process.env.SECRET ? "defined ✅" : "missing ❌");
+
 //Require in the routes for the app to use
 const signupRoute = require("./routes/signupRoute");
 const loginRoute = require("./routes/loginRoute");
